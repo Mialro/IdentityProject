@@ -1,6 +1,7 @@
 using IdentityProject.Data;
 using IdentityProject.Models;
 using IdentityProject.Repository;
+using IdentityProject.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -31,7 +32,7 @@ namespace IdentityProject
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(opt =>
             {
@@ -44,6 +45,10 @@ namespace IdentityProject
             });
 
             services.AddScoped<IAccountRepository, AccountRepository>();
+
+            services.Configure<STMPConfigModel>(Configuration.GetSection("STMPConfig"));
+
+            services.AddScoped<ISendMailService, SendMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
