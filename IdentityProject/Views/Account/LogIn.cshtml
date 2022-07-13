@@ -1,0 +1,61 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "LogInUser";
+}
+
+<h1>LogInUser</h1>
+
+<div class="container">
+
+    <h1 class="display-4">Log In</h1>
+    <hr />
+
+    <form method="post" asp-action="LogIn" asp-route-ReturnUrl="@ViewBag.returnUrl" asp-controller="Account">
+
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password" class="col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" asp-for="RememberMe">
+                Remember Me
+            </label>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <button class="btn btn-success" type="submit">Log In</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="container mt-4">
+        <div class="col-md-6">
+            <a asp-controller="Account" asp-action="RegisterUser">Register</a>
+        </div>
+
+        <div class="col-md-6">
+            <a asp-controller="Account" asp-action="ForgotPasswordUser">Forgot Password</a>
+        </div>
+
+    </div>
+
+</div>
