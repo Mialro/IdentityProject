@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -18,8 +19,14 @@ namespace IdentityProject.Services
         {
             _configOptions = configOptions;
         }
-        public async Task SendEmail(MailOptions mailOptions)
+
+        string templatePath = @"Templates/{0}.html";
+        public async Task SendEmail(MailOptions mailOptions, string templateToUse)
         {
+            //var getBodyContent = GetBody("bodyTemplate");
+            var getBodyContent = GetBody(templateToUse);
+            mailOptions.Body = UpdatePlaceHolder(getBodyContent, mailOptions.PlaceHolder);
+
             MailMessage mailMessage = new MailMessage()
             {
                 Body = mailOptions.Body,
@@ -44,6 +51,27 @@ namespace IdentityProject.Services
             };
 
             await smtpClient.SendMailAsync(mailMessage);
+        }
+
+        private string GetBody(string templateName)
+        {
+            var body = File.ReadAllText(string.Format(templatePath, templateName));
+            return body;
+        }
+
+        private string UpdatePlaceHolder(string text, List<KeyValuePair<string, string>> keyValuePairs)
+        {
+            if(!string.IsNullOrEmpty(text) && keyValuePairs != null)
+            {
+                foreach (var item in keyValuePairs)
+                {
+                    if (text.Contains(item.Key))
+                    {
+                        text = text.Replace(item.Key, item.Value);
+                    }
+                }
+            }
+            return text;
         }
     }
 }

@@ -47,11 +47,27 @@ namespace IdentityProject.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+                    //await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var urlEmail = Url.Action("ConfirmEmailUser", "Account", new { userId = user.Id, token = token });
+
+                    MailOptions mailOptions = new MailOptions()
+                    {
+                        MailTo = new List<string>() { user.Email },
+                        Subject = "Confirm Your Email",
+                        PlaceHolder = new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>("{{mylink}}", urlEmail)
+                        }
+                    };
+
+                    await _sendMailService.SendEmail(mailOptions, "confirmMailTemplate");
 
                     ModelState.Clear();
 
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.IsSuccess = true;
+
+                    return RedirectToAction("Index", "Home", new { isSuccess = ViewBag.IsSuccess });
                 }
 
                 foreach (var error in result.Errors)
@@ -78,7 +94,13 @@ namespace IdentityProject.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(model.Email);
+                var result = await _signInManager.PasswordSignInAsync(await _userManager.FindByEmailAsync(model.Email), model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return LocalRedirect(ReturnUrl);
+                }
+                ModelState.AddModelError("", "Invalid Credentials");
+                /*var user = await _userManager.FindByNameAsync(model.Email);
 
                 if (user != null)
                 {
@@ -86,7 +108,7 @@ namespace IdentityProject.Controllers
                     return LocalRedirect(ReturnUrl);
                 }
 
-                ModelState.AddModelError("", "Invalid Credentials");
+                ModelState.AddModelError("", "Invalid Credentials");*/
             }
 
             return View(model);
@@ -117,45 +139,50 @@ namespace IdentityProject.Controllers
                     return RedirectToAction("ForgotPasswordConfirmation", "Account");
                 }
 
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action("ResetPasswordUser", "Account", new { userId = user.Id, code = code });
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ResetPasswordUser", "Account", new { userId = user.Id, token = token });
 
                 MailOptions mailOptions = new MailOptions()
                 {
-                    MailTo = new List<string>() { model.Email},
-                    Body = "Click On The <a href=\"" + callbackUrl + "\">Link</a> To Reset Your Password",
-                    Subject = "Reset Password"
+                    MailTo = new List<string>() { model.Email },
+                    Subject = "Sending Test",
+                    PlaceHolder = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("{{mylink}}", callbackUrl) }
                 };
 
-                await _sendMailService.SendEmail(mailOptions);
+                await _sendMailService.SendEmail(mailOptions, "resetPasswordTemplate");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             return View(model);
 
             #region For Tests
-            //var user = await _userManager.FindByNameAsync(model.Email);
-            //if (user != null)
-            //{
-            //    var result = await _userManager.GeneratePasswordResetTokenAsync(user);
-            //    return View("ResetPasswordConfirmation");
-            //}
-            //ModelState.AddModelError("", "Invalid Password");
-            //if (ModelState.IsValid)
-            //{
-            //    var myList = new List<string>() { model.Email };
-            //    MailOptions mailOptions = new MailOptions()
-            //    {
-            //        MailTo = myList,
-            //        Body = "This is an Email Test To test the service of sending Email",
-            //        Subject = "Sending Test"
-            //    };
 
-            //    await _sendMailService.SendEmail(mailOptions);
-            //}
+            /*var user = await _userManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                var result = await _userManager.GeneratePasswordResetTokenAsync(user);
+                return View("ResetPasswordConfirmation");
+            }
+            ModelState.AddModelError("", "Invalid Password");*/
 
-            //ModelState.Clear();
-            //return View();
+            /*if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ResetPasswordUser", "Account", new { userId = user.Id, code = code });
+
+                MailOptions mailOptions = new MailOptions()
+                {
+                    MailTo = new List<string>() { model.Email },
+                    Subject = "Sending Test",
+                    PlaceHolder = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("{{mylink}}", callbackUrl) }
+                };
+
+                await _sendMailService.SendEmail(mailOptions);
+            }
+
+            ModelState.Clear();
+            return View();*/
             #endregion
 
         }
@@ -163,6 +190,81 @@ namespace IdentityProject.Controllers
         public IActionResult ForgotPasswordConfirmation()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordUser(string userId, string token)
+        {
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel()
+            {
+                userId = userId,
+                Token = token
+            };
+            return View(resetPasswordModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordUser(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.ResetPasswordAsync(await _userManager.FindByIdAsync(model.userId), model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmailUser(string userId, string token)
+        {
+            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(token))
+            {
+                await _userManager.ConfirmEmailAsync(await _userManager.FindByIdAsync(userId), token);
+                ViewBag.IsSuccess = true;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmEmailUser(ConfirmEmailModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var urlEmail = Url.Action("ConfirmEmailUser", "Account", new { userId = user.Id, token = token });
+
+                    MailOptions mailOptions = new MailOptions()
+                    {
+                        MailTo = new List<string>() { user.Email },
+                        Subject = "Confirm Your Email",
+                        PlaceHolder = new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>("{{mylink}}", urlEmail)
+                        }
+                    };
+
+                    await _sendMailService.SendEmail(mailOptions, "confirmMailTemplate");
+
+                    ViewBag.IsSuccess = true;
+
+                    return RedirectToAction("Index", "Home", new { isSuccess = ViewBag.IsSuccess });
+                }
+
+                ModelState.AddModelError("", "There is no Account with this Email. Please create an Account");
+            }
+            return View(model);
         }
     }
 }

@@ -434,3 +434,5 @@ E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityP
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Account\LogIn.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Account\ForgotPasswordUser.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Account\ForgotPasswordConfirmation.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Account\ResetPasswordUser.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Account\ConfirmEmailUser.cshtml.g.cs

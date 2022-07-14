@@ -37,11 +37,14 @@ namespace IdentityProject
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.Password.RequireDigit = false;
-                opt.Password.RequiredLength = 4;
+                opt.Password.RequiredLength = 5;
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
                 opt.Lockout.MaxFailedAccessAttempts = 2;
+                opt.Password.RequireUppercase = false;
+
+                opt.SignIn.RequireConfirmedEmail = true;
             });
 
             services.AddScoped<IAccountRepository, AccountRepository>();

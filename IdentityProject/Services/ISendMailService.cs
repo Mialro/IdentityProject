@@ -5,6 +5,6 @@ namespace IdentityProject.Services
 {
     public interface ISendMailService
     {
-        Task SendEmail(MailOptions mailOptions);
+        Task SendEmail(MailOptions mailOptions, string templateToUse);
     }
 }

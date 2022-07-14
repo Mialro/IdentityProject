@@ -1,0 +1,38 @@
+﻿@model IdentityProject.Models.ConfirmEmailModel
+
+@{
+    ViewData["Title"] = "ConfirmEmailUser";
+}
+
+
+<h4 class="display-4">Confirm Email</h4>
+<hr />
+<div class="row">
+
+    @if (ViewBag.IsSuccess == true)
+    {
+        <p class="text-success">Your Email has been Successfully confirmed</p>
+    }
+    else
+    {
+        <div class="col-md-4">
+            <form asp-action="ConfirmEmailUser">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    }
+
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back Home</a>
+</div>
+
