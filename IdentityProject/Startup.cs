@@ -47,6 +47,18 @@ namespace IdentityProject
                 opt.SignIn.RequireConfirmedEmail = true;
             });
 
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "361015836110838";
+                options.AppSecret = "c0b4cc7fb23f0d652fe1d94074a1f931";
+                options.Scope.Add("tchamdeyves@gmail.com");
+            });
+
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Home/AccessDenied");
+            //});
+
             services.AddScoped<IAccountRepository, AccountRepository>();
 
             services.Configure<STMPConfigModel>(Configuration.GetSection("STMPConfig"));

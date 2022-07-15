@@ -1,6 +1,14 @@
 ﻿@model LoginViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
 @{
     ViewData["Title"] = "LogInUser";
+}
+
+@{ 
+    var scheme = await signInManager.GetExternalAuthenticationSchemesAsync();
+    var loginProivders = scheme.ToList();
 }
 
 <h1>LogInUser</h1>
@@ -10,42 +18,64 @@
     <h1 class="display-4">Log In</h1>
     <hr />
 
-    <form method="post" asp-action="LogIn" asp-route-ReturnUrl="@ViewBag.returnUrl" asp-controller="Account">
+    <div class="row">
+        <div class="col-8">
+            <form method="post" asp-action="LogIn" asp-route-ReturnUrl="@ViewBag.returnUrl" asp-controller="Account">
 
-        <div asp-validation-summary="ModelOnly"></div>
+                <div asp-validation-summary="ModelOnly"></div>
 
-        <div class="form-group">
-            <label asp-for="Email" class="col-md-2"></label>
-            <div class="col-md-6">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email"></span>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-2"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" asp-for="RememberMe">
+                        Remember Me
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <button class="btn btn-success" type="submit">Log In</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        @if (loginProivders.Count > 0)
+        {
+            <div class="col-4">
+                <section>
+                    <h6>Use Another Service to Login</h6>
+                    <form asp-action="ExternalLogin" asp-controller="Account" method="post" asp-route-ReturnUrl="@ViewBag.ReturnUrl" role="form">
+                        @foreach (var provider in loginProivders)
+                        {
+                            <button name="provider" value="@provider.Name" title="Log In Use your @provider.Name account" class="btn btn-success" type="submit">@provider.Name</button>
+
+                        }
+                    </form>
+                </section>
             </div>
-        </div>
+        }
 
-        <div class="form-group">
-            <label asp-for="Password" class="col-md-2"></label>
-            <div class="col-md-6">
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password"></span>
-            </div>
-        </div>
-
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" asp-for="RememberMe">
-                Remember Me
-            </label>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-6">
-                <button class="btn btn-success" type="submit">Log In</button>
-            </div>
-        </div>
-
-    </form>
+    </div>
+    
 
     <div class="container mt-4">
         <div class="col-md-6">

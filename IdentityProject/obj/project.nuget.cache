@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Ori5+0+CY+CBU+zX4ePJpGHBFk+I4PcSaIi4TqXyFU+hIgZwhDONcHHNxEij22X/YxsJO00v6Nf5WpLGBukBjg==",
+  "dgSpecHash": "JgM1eQ/OQK7LK6zyaRtEjqWdGtalWvHo3eEyDQPRRGgHF5rZzYtir0iC+S/3ITHqBi6Ic/EPBjbyibq7sTRPbQ==",
   "success": true,
   "projectFilePath": "E:\\Videos_Courses\\WebGentle-Asp.Net Core_Courses\\Asp.Net Core\\Projects\\IdentityProject\\IdentityProject\\IdentityProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yves Tchamde\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Yves Tchamde\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\5.0.17\\microsoft.aspnetcore.authentication.facebook.5.0.17.nupkg.sha512",
     "C:\\Users\\Yves Tchamde\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",
     "C:\\Users\\Yves Tchamde\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.17\\microsoft.aspnetcore.cryptography.keyderivation.5.0.17.nupkg.sha512",
     "C:\\Users\\Yves Tchamde\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

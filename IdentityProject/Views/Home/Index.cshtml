@@ -9,4 +9,9 @@
     }
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    @if (ViewBag.Role != null)
+    {
+        <h3 class="text-success">You are - <b>@ViewBag.Role</b></h3>
+    }
 </div>

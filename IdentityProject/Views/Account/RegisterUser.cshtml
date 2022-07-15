@@ -48,6 +48,16 @@
         </div>
 
         <div class="form-group">
+            <label asp-for="Role" class="col-md-4"></label>
+            <div class="col-md-6">
+                <select asp-for="Role" class="form-control" asp-items="new SelectList(@ViewBag.AllRoles)">
+                    <option value="">--Select a Role--</option>
+                </select>
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-6">
                 <button class="btn btn-success" type="submit">Register</button>
             </div>

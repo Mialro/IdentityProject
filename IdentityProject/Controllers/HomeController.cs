@@ -19,17 +19,23 @@ namespace IdentityProject.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(bool isSuccess = false)
+        public IActionResult Index(bool isSuccess = false, string role=null)
         {
             ViewBag.IsSuccess = isSuccess;
+            ViewBag.Role = role;
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public IActionResult Privacy()
         {
             return View();
         }
+
+        //public IActionResult AccessDenied()
+        //{
+        //    return View();
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
