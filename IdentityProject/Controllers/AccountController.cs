@@ -387,6 +387,7 @@ namespace IdentityProject.Controllers
         [HttpPost]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationModel model, string returnUrl)
         {
+            returnUrl = returnUrl ?? Url.Content("~");
             if (ModelState.IsValid)
             {
                 var info = await _signInManager.GetExternalLoginInfoAsync();
