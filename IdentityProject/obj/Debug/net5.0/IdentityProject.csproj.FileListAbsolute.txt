@@ -487,3 +487,6 @@ E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityP
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Roles\Index.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Roles\CreateRole.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Roles\UpdateRole.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Roles\DeleteRole.cshtml.g.cs

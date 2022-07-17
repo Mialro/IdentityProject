@@ -145,6 +145,7 @@ namespace IdentityProject.Controllers
         public async Task<IActionResult> LogIn(LoginViewModel model, string ReturnUrl = null)
         {
             //ViewBag.returnUrl = ReturnUrl;
+            var x = Url.Content("/");
             ReturnUrl = ReturnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
