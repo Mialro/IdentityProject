@@ -1,0 +1,57 @@
+﻿@model ApplicationUser
+
+@{
+    ViewData["Title"] = "Delete User";
+}
+
+<div class="container">
+
+    <h1 class="display-4">Delete User</h1>
+    <hr />
+
+    <form method="post" asp-action="DeleteUser" asp-controller="User">
+
+        <h4 class="text-danger">Do You Really want to Delete This User ?</h4>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="Name" class="form-control" readonly />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2"></label>
+            <div class="col-md-6">
+                <input asp-for="Email" class="form-control" readonly />
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Id" class="col-md-2">Id User</label>
+            <div class="col-md-6">
+                <input asp-for="Id" class="form-control" readonly />
+                <span asp-validation-for="Id"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-2">
+                    <button class="btn btn-success" type="submit">Delete User</button>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-success" asp-action="Index">Back to Users</a>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+

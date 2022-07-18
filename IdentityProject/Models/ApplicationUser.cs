@@ -10,7 +10,7 @@ namespace IdentityProject.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
+        [Required(ErrorMessage ="The Name is Required")]
         public string Name { get; set; }
 
         [NotMapped]
