@@ -492,3 +492,5 @@ E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityP
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Roles\DeleteRole.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\User\UpdateUser.cshtml.g.cs
 E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\User\DeleteUser.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Claims\Index.cshtml.g.cs
+E:\Videos_Courses\WebGentle-Asp.Net Core_Courses\Asp.Net Core\Projects\IdentityProject\IdentityProject\obj\Debug\net5.0\Razor\Views\Claims\CreateClaim.cshtml.g.cs
